@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% load staticfiles %} 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+{% block style %}
+    {% endblock%}
+    <title>{% block title %}Intactilis.pl{% endblock %}</title>
+
+
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/carousel.css'%}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    {% include "navbar.html" %}
+
+    <!-- Full Width Image Header with Logo -->
+    <!-- Image backgrounds are set within the full-width-pics.css file. -->
+    {% block content%}
+    
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide" src="/static/images/1.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1></h1>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="second-slide" src="/static/images/7.jpg" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1></h1>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="/static/images/4.jpg" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1></h1>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <h2>{{ carousel_album.photo_set.all }}</h2>
+{% for photo in carousel_album.photo_set.all %}
+<p>{{ photo }}</p>
+{% endfor %}
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+          <a href="{% url 'album_list' %}" class="kolor">
+        <div class="col-lg-4">
+            <i class="fa fa-picture-o fa-5x"></i>
+            <h2>Galeria</h2>
+        </div><!-- /.col-lg-4 -->
+          </a>
+          <a href="{% url 'youtube' %}" class="kolor">
+        <div class="col-lg-4">
+            <i class="fa fa-youtube-square fa-5x"></i>
+            <h2>Youtube</h2>
+        </div><!-- /.col-lg-4 -->
+          </a>
+          <a href="{% url 'index' %}" class="kolor">
+        <div class="col-lg-4">
+            <i class="fa fa-calendar-o fa-5x"></i>
+            <h2>Kalendarz</h2>
+        </div><!-- /.col-lg-4 -->
+          </a>
+      </div><!-- /.row -->
+
+
+      <hr class="featurette-divider">
+
+
+
+      <!-- START THE FEATURETTES -->
+
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading text-muted kolor">Witaj na oficjalnej stronie grupy Intactilis! </h2>
+          <p class="lead kolor">Założeniem naszej grupy jest symulowanie realistycznych rozgrywek typu "COOP", 
+oraz organizacja profesjonalnych szkoleń wojskowych, na których się one opierają.
+W naszych szeregach znajdują się nie tylko amatorzy militarii, ale równierz osoby z doświadczeniem, 
+oraz szeroką wiedzą na temat wojskowości. 
+Przede wszystkim jesteśmy zgraną paczką ludzi, znających się od dawna, których połączyła wspólna pasja.
+Sukcesywnie realizujemy cele, które wyznaczyliśmy sobie na początku budowania naszej grupy.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="/static/images/home501.jpg" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading text-muted kolor" style="margin-top: 10px;">Dołącz do najlepszych!</span></h2>
+          <p class="lead kolor">Jeżeli podzielasz naszą pasję i jesteś zainteresowany przyłączeniem się do nas, złóż podanie juz dziś!
+Znajdziesz u nas wszystko czego potrzebujesz, gwarantujemy dobrą zabawę w przyjaznym gronie,
+a przedewszystkim wiedzę, która może Ci się przydać w przyszłości.</p>
+
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <div class="embed-responsive embed-responsive-16by9 center-block">
+        <iframe src="https://www.youtube.com/embed/0fnhgb-aEG8" frameborder="0" scrolling="no" allowfullscreen></iframe>
+      </div>
+        </div>
+      </div>
+      </div>
+
+      
+
+      <!-- /END THE FEATURETTES -->
+
+
+<div id="facebook_slider_widget" style="display: none"><script type="text/javascript" src="http://webfrik.pl/widget/facebook_slider.html?fb_url=https://www.facebook.com/pages/Intactilis-ArmA-3/372018453001011&amp;fb_width=290&amp;fb_height=590&amp;fb_faces=true&amp;fb_stream=true&amp;fb_header=true&amp;fb_border=true&amp;fb_theme=light&amp;chx=787&amp;speed=FAST&amp;fb_pic=sign&amp;position=LEFT"></script></div>
+
+
+    {% endblock %}
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p></p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </footer>
+{% block script %}{% endblock %} 
+
+</body>
+
+</html>

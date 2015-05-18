@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block title %}{{ object.title }} - {{object.type}}{% endblock %}
+
+{% load cal_tags %}
+
+{% block content %}
+{# <div class="col-md-1"></div>#}
+<div class="container col-md-12" {# style="background-color: #272B30; border-radius: 15px;" #}>
+    <div style="margin-top: 20px;" class="panel {% if not event.is_open %}panel-danger{% else %}panel-default{% endif%}">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+              Szczegóły
+          </h4>
+                
+        </div>
+        <table class="table table-bordered">
+          {% if not event.is_open %}
+          <caption><h4 class="text-danger">Wydarzenie zakończone</h4></caption>
+          {% endif %}
+          <tr>
+          	<td class="col-md-2">Tytuł</td>
+          	<td>{{ event|upper }}</td>
+          </tr>
+          <tr>
+            <td>Data</td>
+            <td>{{event.date}}</td>
+          </tr>
+          <tr>
+            <td>Godzina</td>
+            <td>{{event.time|time:"H:i"}}</td>
+          </tr>
+          <tr>
+            <td>Sloty</td>
+            <td>{{event.slots_taken}}/{{event.slots_no}}</td>
+          </tr>
+          <tr>
+            <td>Autor</td>
+            <td>{{event.author}}</td>
+          </tr>
+          <tr>
+            <td>Mapa</td>
+            <td>{{ event.terrain }}</td>
+          </tr>
+          <tr>
+            <td>Typ</td>
+            <td>{{event.type}}</td>
+          </tr>
+          <tr>
+          	<td>OPORD</td>
+          	<td>
+              {% if event.url %}
+              <a href="{{event.url}}">{{ event.url }}</a>
+              {% else %}
+              Brak
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+        </div>
+
+
+
+
+    <!-- panel od slotow-->
+    <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                Sloty
+            </h4>
+            
+          </div>
+          
+          {% if slot_list %}
+            <table class="table table-hover">
+            {% for slot in slot_list %}
+              {% compare_users slot.entry.user request.user as is_logged_in_user %}
+              <tr class="
+              {% if event.is_open %}
+                  {% if is_logged_in_user %}success
+                  {% elif slot.entry %}info
+                  {% else %}
+                  {% endif %}
+              {% else %}
+                  {% if is_logged_in_user %}success
+                  {% elif not slot.entry %}active
+                  {% elif slot.entry.absence %}warning
+                  {% else %}info
+                  {% endif %}
+              {% endif %}">
+                <td class="col-lg-2 text-right">
+                  <small>{{ slot.group_name }}</small>
+                </td>
+                <td>
+                  <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="{{ slot.type.translation }}" data-content="{{ slot.type.description }}">
+                  {{ slot.type }}
+                  </a>
+                </td>
+                <td>{% if slot.entry %}{{ slot.entry.user }}
+                        {% if is_logged_in_user and can_quit%}
+                        <a href="{% url 'entry_delete' slot.entry.pk %}">[Wypisz się]
+                        {% endif %}
+                  {% else %}
+                    <small>
+                      <em>Pusty</em>
+                        {% if is_signed_up and can_switch %}
+                          <a href="{% url 'entry_update' pk=loggedin_user_entry.pk to_id=slot.pk %}">[Przepisz się]</a>
+                        {% elif event.is_open and not is_signed_up and is_member %}
+                          <a href="{% url 'entry_add' slot.pk %}">[Zapisz się]</a>
+                        {% endif %}
+                      
+                    </small>
+                  {% endif %}
+                </td>
+                {% if not event.is_open %}
+                <td class="text-right">
+                  {% if not slot.entry and not slot.entry.absence %}
+                    
+                  {% elif not slot.entry.absence %}
+                    <span class="glyphicon glyphicon-ok-circle"></span>
+                  {% else %}
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                  {% endif %}
+                </td>
+                {% endif %}
+              </tr>
+              
+              {% endfor %}
+            </table>
+            
+          {% else %}
+            <div class="panel-body">Brak slotów</div>
+          {% endif %}
+    </div>
+
+    {% if user has 'cal.change_event' of object %}
+      <div>
+        <a href="{% url 'event_edit' event.pk %}" class="btn btn-default">Edytuj</a>
+      </div>
+    {% endif %}
+</div>
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
+
+{% endblock %}
+
+
+
+{% if event.terrain %}
+  {% if event.terrain.pic.url %}
+
+        <style>
+        body { 
+       background: -webkit-linear-gradient(-90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 25%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%), url("{{ terrain_pic }}");
+      background: -moz-linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 25%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%), url("{{ terrain_pic }}");
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 25%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%), url("{{ terrain_pic }}");
+      background-repeat: no-repeat;
+      background-position: 50% 100%, center top;
+      -webkit-background-origin: padding-box;
+      background-origin: padding-box;
+      -webkit-background-clip: border-box;
+      background-clip: border-box;
+      -webkit-background-size: cover;
+      background-size: cover;
+      background-attachment: fixed;
+          }
+        </style>
+ 
+    {% block style %}
+    {% endblock %}
+  {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+{# 
+<div>
+  <table class="table table-bordered">
+    <tr>
+      <td class="col-md-1">is signed:</td>
+      <td>{{ is_signed_up }}</td>
+    </tr>
+    <tr>
+      <td>can_quit</td>
+      <td>{{ can_quit }}</td>
+    </tr>
+    <tr>
+      <td>can_switch</td>
+      <td>{{ can_switch }}</td>
+    </tr>
+    <tr>
+      <td>is_member:</td>
+      <td>{{ is_member }}</td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+
+
+
+ #}

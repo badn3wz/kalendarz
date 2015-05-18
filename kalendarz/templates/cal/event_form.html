@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+<form action="" method="post">
+	{% csrf_token %}
+	<div class='col-md-5'>
+		{% bootstrap_form form %}
+		<input class="btn btn-primary" type="submit" value="Wyślij" />
+	</div>
+	<div class='col-md-7'>
+	{% for formset in inlines %}
+		<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">Sloty</h4>
+		</div>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>
+							Nazwa Grupy
+						</th>
+						<th>
+							Typ slotu
+						</th>
+						<th>
+							Kolejność
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for form in formset %}	
+						<tr class="form-container form-group form-group-sm">
+							{{form.id}}
+							{{ form.hidden_fields.as_hidden }}
+
+								<td>	
+									{% bootstrap_field form.group_name layout='inline'%}
+								</td>
+								<td>
+									{% bootstrap_field form.type layout='inline' %}
+								</td>
+								<td class="col-md-2">
+									{% bootstrap_field form.order layout='inline' %}
+								</td>
+								{% if form.instance.pk and formset.can_delete %}
+								<td>
+									{% bootstrap_field form.DELETE layout='inline' %}
+								</td>
+								{% endif %}
+						</tr>
+					</tbody>
+				{% endfor %}
+	    	</table>
+	    </div>
+	    {{ formset.management_form }}
+	{% endfor %}
+	</div>
+</form>
+
+
+
+{% endblock %}
+
+
+
+
+{% block script %}
+<link rel="stylesheet" type="text/css" href="{% static '/static/css/jquery.datetimepicker.css' %}"/ >
+<script src="{% static '/static/js/jquery.js' %}"></script>
+<script src="{% static '/static/js/jquery.datetimepicker.js' %}"></script>
+<script>jQuery('#id_datetime').datetimepicker({
+ lang:'pl',
+ format:'d.m.Y H:i',
+ defaultTime:'20:00',
+ dayOfWeekStart: 1,});</script>
+{% endblock %}

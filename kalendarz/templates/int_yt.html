@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Kanały Youtube{% endblock %}
+
+{% block content %}
+
+
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#chiggy" aria-controls="chiggy" role="tab" data-toggle="tab">Chiggy</a></li>
+    <li role="presentation"><a href="#uli" aria-controls="uli" role="tab" data-toggle="tab">Uli</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+    <!-- CHIGGY -->
+    <div role="tabpanel" class="tab-pane fade in active" id="chiggy">
+    	<div class="embed-responsive embed-responsive-16by9">
+  			<iframe src="https://www.youtube.com/embed/videoseries?list=PLC7JQhVr8b8xASkO5oWkN9icD-oZS3SWv" frameborder="0" scrolling="no" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- ULI -->
+    <div role="tabpanel" class="tab-pane fade" id="uli">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/videoseries?list=PLp9kUIgGieDHKbN90-K__9_nLp5rZSpot" frameborder="0" scrolling="no" allowfullscreen></iframe>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+{% endblock %}

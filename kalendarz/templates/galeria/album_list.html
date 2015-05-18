@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Albumy{% endblock %}
+
+{% load thumbnail %}
+
+
+{% block style %}
+<link href="/static/css/3-col-portfolio.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Albumy
+                    <small>lista</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+{% if object_list %}
+	{% for object in object_list %}
+		{% if forloop.counter0|divisibleby:3 %}
+			<div class="row">
+		{% endif %}
+				<div class="col-md-4 portfolio-item">
+	                <a href="{% url 'photo_list' object.pk %}">
+                    {% if object.photo_set.last %}
+                    {% thumbnail object.photo_set.last.file "700x400" crop="center" as im %}
+                        <img class="img-responsive" alt="{{ object.name }}"
+                            src="{{ im.url }}" width="{{ im.width }}"
+                            height="{{ im.height }}">
+                    {% endthumbnail %}
+                    {% else %}
+
+	                    <img class="img-responsive"  
+                        src="http://placehold.it/700x400&text=No+image">
+                    {% endif %}
+	                </a>
+	                <h3>
+	                    <a href="{% url 'photo_list' object.pk %}">{{ object.name }}</a>
+	                </h3>
+	                <p>{{ object.description }}</p>
+		        </div>
+	    {% with counter2=forloop.counter0|add:1 %}
+        {% if forloop.last or counter2|divisibleby:3 %}
+	        </div>
+        {% endif %}
+        {% endwith %}
+
+	{% endfor %}
+
+        <hr>
+
+
+	{% if is_paginated %}
+
+		<!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination pagination-sm">
+                {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    </li>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+			        <li class="{% if page_obj.number == page  %}active{% endif %}">
+			        	<a href="?page={{page }}">{{ page }}</a>
+			        </li>
+			    {% endfor %}
+			    {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    </li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+	{% endif %}
+{% else %}
+<h2 class="">Brak albumów do wyświetlenia</h2>
+
+{% endif %}
+
+
+
+{% endblock %}

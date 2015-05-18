@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Streamy{% endblock %}
+{% load cal_tags %}
+{% block content %}
+<h3>Nasze serwery:</h3>
+  <!-- TEAMSPEAK -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        Teamspeak
+      </h4>
+    </div>
+    <div class="panel-body">
+      <p>Adres: intactilis.net-speak.pl</p>
+      <a href="http://www.gametracker.com/server_info/178.217.190.41:6320/" target="_blank"><img src="http://cache.www.gametracker.com/server_info/178.217.190.41:6320/b_560_95_1.png" border="0" width="560" height="95" alt=""/></a>
+    </div>
+  </div>
+
+  <!-- ARMA -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        Arma 3
+      </h4>
+    </div>
+    <div class="panel-body">
+      <p>Adres: intactilis.pl<br/>
+      Port: 2302<br/>
+        {% if request.user|in_group:"Member" %}
+          <button type="button" class="btn btn-xs btn-info" data-toggle="popover" title="Hasło na serwer:" data-content="nip">Pokaż hasło</button>
+        {% endif %}
+      </p>
+      <a href="http://www.gametracker.com/server_info/78.47.75.214:2302/" target="_blank"><img src="http://cache.www.gametracker.com/server_info/78.47.75.214:2302/b_560_95_1.png" border="0" width="560" height="95" alt=""/></a>
+    </div>
+  </div>
+
+
+
+
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
+{% endblock %}

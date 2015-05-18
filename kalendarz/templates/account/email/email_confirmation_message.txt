@@ -1,0 +1,6 @@
+{% load account %}{% user_display user as user_display %}{% autoescape off %}
+Witaj!
+Użytkownik {{ user_display }} podał ten adres e-mail podczas rejestracji na stronie  intactilis-cal.herokuapp.com
+
+Aby potwierdzić rejestrację, wejdź w podany link:{{ activate_url }}
+{% endautoescape %}

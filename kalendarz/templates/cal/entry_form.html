@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Zmiana slotu{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+{{ form }}
+	{{form.errors}}
+	<table class="table table-bordered">
+		<tr>
+			<td>
+				{{ object.slot.event|upper }}
+			</td>
+			<td>
+				{{ object.slot.event.date }} {{ object.slot.event.time }}
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				Obecny Slot:
+			</td>
+			<td>
+				{{ object.slot.group_name|upper }}
+			</td>
+			<td>
+				{{ object.slot.type|upper }}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Nowy Slot:</strong>
+			</td>
+			<td>
+				{{ nowy_slot.group_name|upper }}
+			</td>
+			<td>
+				{{ nowy_slot.type|upper }}
+			</td>
+		</tr>
+
+				
+
+
+	</table>
+	<input class="btn btn-primary" type="submit" value="Zmień slot" />
+</form>
+
+{% endblock %}

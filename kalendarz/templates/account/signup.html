@@ -1,0 +1,49 @@
+{% extends "account/base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div class="center-block col-md-6" style="float: none">
+<h2>Zarejestruj się</h2>
+
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+        {{ form.non_field_errors.as_text }}</div>
+        {% endif %}
+
+
+    	<div class="form-group {% if form.username.errors %}has-error{% endif %}" role="alert">
+        {% if form.username.errors %}<label for="username" class="control-label">{{ form.username.errors.as_text }}</label>{% endif %}
+        <input type="username" id="username" name="username" class="form-control" placeholder="Nick" autofocus></div>
+
+        <div class="form-group {% if form.email.errors %}has-error{% endif %}" role="alert">
+        {% if form.email.errors %}<label for="email" class="control-label">{{ form.email.errors.as_text }}</label>{% endif %}
+        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" autofocus></div>
+
+        <div class="form-group {% if form.password1.errors %}has-error{% endif %}" role="alert">
+        {% if form.password1.errors %}
+          <label for="inputPassword1" class="control-label">{{ form.password1.errors.as_text }}</label>{% endif %}
+        <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Hasło"></div>
+
+        <div class="form-group {% if form.password2.errors %}has-error{% endif %}" role="alert">
+        {% if form.password2.errors %}
+          <label for="inputpassword2" class="control-label">{{ form.password2.errors.as_text }}</label>{% endif %}
+        <input type="password" name="password2" id="inputpassword2" class="form-control" placeholder="Powtórz Hasło"></div>
+
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <button class="btn btn-primary btn-lg btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
+</form>
+
+</div>
+{% endblock %}
+
+

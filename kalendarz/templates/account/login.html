@@ -1,0 +1,38 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="center-block col-md-6" style="float: none">
+<form class="form-signin" method="POST" action="{% url 'account_login' %}">
+        <h2 class="form-signin-heading">Logowanie</h2>
+        <p>Jeśli nie masz jeszcze konta, 
+        <a href="{{ signup_url }}">zarejestruj się.</a><br/> Jeśli nie pamiętasz hasła, możesz je <a href="{% url 'account_reset_password' %}">zresetować.</a></p>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+        {{ form.non_field_errors.as_text }}</div>
+        {% endif %}
+        <div class="form-group {% if form.login.errors %}has-error{% endif %}" role="alert">
+        {% if form.login.errors %}<label for="login" class="control-label">{{ form.login.errors.as_text }}</label>{% endif %}
+        <input type="login" id="login" name="login" class="form-control" placeholder="Login" autofocus></div>
+
+        <div class="form-group {% if form.password.errors %}has-error{% endif %}" role="alert">
+        {% if form.password.errors %}
+          <label for="inputPassword" class="control-label">{{ form.password.errors.as_text }}</label>{% endif %}
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Hasło"></div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name='remember' value="remember-me"> Zapamiętaj mnie
+          </label>
+        </div>
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Zaloguj się</button>
+      </form>
+      </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ object }} - Profil{% endblock %}
+{% load bootstrap3 %}
+{% block content %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">{{ object }}
+		</h4>
+	</div>
+	<table class="table table-bordered">
+		<tr>
+			<td class="col-md-2">
+				Player ID:
+			</td>
+			<td>
+				{{ object.player_id }}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Rozegrane misje:
+			</td>
+			<td>
+				{{ object.mission_no}}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				sloty:
+			</td>
+			<td>
+				{{ object.slot_count }}
+			</td>
+		</tr>
+	</table>
+
+
+</div>
+{% endblock %}

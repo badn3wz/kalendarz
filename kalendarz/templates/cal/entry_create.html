@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Zapis na misje{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+    <table class="table table-bordered">
+    	{{ form }}
+		{{ form.errors }}
+		<tr>
+			<td>
+				{{ slot.event|upper }}
+			</td>
+			<td>
+				{{ slot.event.date }} {{ slot.event.time }}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				{{ slot.group_name|upper }}
+			</td>
+			<td>
+				{{ slot.type|upper }}
+			</td>
+		</tr>
+    </table>
+    <input class="btn btn-primary" type="submit" value="Zapisz się" />
+</form>
+
+{% endblock %}

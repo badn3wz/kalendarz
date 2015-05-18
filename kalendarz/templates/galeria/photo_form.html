@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block title %}Dodaj zdjęcie{% endblock %}
+
+{% block content %}
+<h2>Dodaj Zdjęcie</h2>
+<div class="col-lg-6">
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" value="Create" />
+</form>
+</div>
+{% endblock %}

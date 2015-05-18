@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+{% load staticfiles %}  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="badn3wz">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <title>{% block title %}{% endblock %} | Intactilis.pl</title>
+
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+    {% block style %}
+    {% endblock%}
+
+
+</head>
+
+<body>
+  <div class="basic">
+    {% include "navbar.html" %}    
+  </div>
+    <div class='my-background'>
+      <div class="container center-block" >
+
+
+          {% block bootstrap3_content %}
+
+            {% bootstrap_messages %}
+            {% block content %}
+            {% endblock %}
+          {% endblock %}
+
+      </div> <!-- /container -->
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {% block script %}{% endblock %}
+  </body>
+</html>

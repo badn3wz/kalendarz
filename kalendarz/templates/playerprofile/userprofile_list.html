@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Lista graczy{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+
+{% regroup object_list by rank as profile_list %}
+
+	{% for profile in profile_list %}
+	<div class="panel 
+	{% if profile.grouper.css_class %}
+	{{ profile.grouper.css_class }}
+	{% else %}
+	panel-default
+	{% endif %}">
+		<div class="panel-heading ">{{ profile.grouper }}</div>
+		<table class="table table-hover">
+			{% for item in profile.list %}
+				<tr>
+					<td class="col-lg-2">
+				<a href="{% url 'view_profile' item.pk %}">
+						{{item.user}}
+					</a>
+					</td>
+					<td>
+						{{item.rank}}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+
+	{% endfor %}
+
+{% endblock %}

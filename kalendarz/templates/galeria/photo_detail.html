@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+<p>{{ object.name }}</p>
+<p>{{ object.description }}</p>
+
+
+{% endblock %}

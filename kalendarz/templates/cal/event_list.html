@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Nadchodzące wydarzenia{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+
+{% regroup object_list by date as event_list %}
+
+{% if event_list %}
+	{% for event in event_list %}
+	<div class="panel panel-default">
+		<div class="panel-heading">{{ event.grouper }}</div>
+		<ul class="list-group">
+			{% for item in event.list %}
+			<a href="{% url 'detail' item.pk %}">
+				<li class="list-group-item 
+					{{ item.type.css_class }}">
+				
+				<span class="pull-left col-md-1">{{item.time|time:"H:i"}}</span>
+				<strong class="text-uppercase">
+					{{item.type}}: {{ item.title }}
+				</strong>
+				<span class="pull-right badge">{{ item.slots_taken }}/{{ item.slots_no }}</span>
+				</li></a>
+			{% endfor %}
+		</ul>
+
+	</div>
+
+	{% endfor %}
+
+{% else %}
+<h2 class="">Brak wydarzeń do wyświetlenia</h2>
+
+{% endif %}
+
+
+
+{% endblock %}

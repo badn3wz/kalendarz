@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Potwierdź wypis{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+	<table class="table table-bordered">
+		<tr>
+			<td>
+				{{ object.slot.event|upper }}
+			</td>
+			<td>
+				{{ object.slot.event.date }} {{ object.slot.event.time }}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				{{ object.slot.group_name|upper }}
+			</td>
+			<td>
+				{{ object.slot.type|upper }}
+			</td>
+		</tr>
+		{% if request.user.is_staff %}
+		<tr>
+			<td>
+				ID: {{ object.pk }}
+			</td>
+			<td>
+				Użytkownik: {{ object.user }}				
+			</td>
+		</tr>
+		{% endif %}
+	</table>
+    <p>Czy na pewno chcesz wypisać się z misji? </p>
+    <input class="btn btn-primary" type="submit" value="Wypisz" />
+</form>
+
+{% endblock %}
